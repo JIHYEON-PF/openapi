@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile: prod-config
+server:
+  port: 80
+logging:
+  level:
+    org.springframework: info
+    org.springframework.web.client: debug
+    org.springframework.jdbc.core: trace
+    com.aptner: trace
+    jdbc:
+      audit: off
+      sqlonly: info
+      sqltiming: debug
+      resultset: off
+      resultsettable: info
+      connection: off
