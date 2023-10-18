@@ -19,6 +19,7 @@ naver:
     dictionary:
       path: https://openapi.naver.com/v1/search/encyc.json
       method: GET
-
+server:
+  port: 80
 
 
