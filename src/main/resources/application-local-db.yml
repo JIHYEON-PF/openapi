@@ -4,6 +4,6 @@ spring:
       on-profile: local-db
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3361/openapi_db?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://127.0.0.1:3361/openapi_db?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&useSSL=false
     username: openapi_jh
     password: openapi_jh_3323
