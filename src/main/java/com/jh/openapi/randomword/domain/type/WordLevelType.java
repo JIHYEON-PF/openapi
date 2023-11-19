@@ -10,13 +10,13 @@ import java.util.Arrays;
 
 @RequiredArgsConstructor
 @Getter
-public enum WordLevel {
+public enum WordLevelType {
     ELEMENT,
     MIDDLE,
     HIGH,
     ;
 
-    public static WordLevel findByName(String name) {
+    public static WordLevelType findByName(String name) {
         if (StringUtils.isBlank(name)) {
             throw new BusinessException(BadRequestType.INVALID_WORD_TYPE);
         }

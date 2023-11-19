@@ -11,6 +11,7 @@ public enum BadRequestType implements ErrorType {
     FAILED_TO_VALIDATE_REQUEST(1, "잘못된 요청 데이터입니다."),
     INVALID_LANGUAGE_TYPE(2, "언어 요청 타입이 잘못되었습니다."),
     INVALID_WORD_TYPE(3, "단어 레벨 요청 타입이 잘못되었습니다."),
+    ALREADY_EXISTS_WORD(4, "이미 등록된 단어입니다."),
     ;
 
     private final HttpStatus status = HttpStatus.BAD_REQUEST;

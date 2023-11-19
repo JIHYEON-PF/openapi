@@ -2,7 +2,7 @@ package com.jh.openapi.randomword.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jh.openapi.randomword.domain.entity.EnglishWord;
-import com.jh.openapi.randomword.domain.type.WordLevel;
+import com.jh.openapi.randomword.domain.type.WordLevelType;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 public class WordResponseDto {
     private final String vocabulary;
     private final String mean;
-    private final WordLevel level;
+    private final WordLevelType level;
     @JsonFormat(pattern = "yyyy.MM.dd HH:mm")
     private final LocalDateTime lastUpdateDatetime;
     private final String lastUpdateUserNickName;
 
     private static final String UNDEFINED_USER = "알 수 없는 사용자";
 
-    public static WordResponseDto fromEntity(EnglishWord entity, String nickName) {
+    public static WordResponseDto fromEntity(EnglishWord entity) {
         Assert.notNull(entity, "entity must not be null");
 
         return WordResponseDto.builder()
@@ -29,12 +29,12 @@ public class WordResponseDto {
                 .mean(entity.getMeaning())
                 .level(entity.getLevel())
                 .lastUpdateDatetime(entity.getLastUpdateDatetime())
-                .lastUpdateUserNickName(getUserNickName(nickName))
+                .lastUpdateUserNickName(getUserNickName(entity.getLastUpdateUserNickname()))
                 .build();
     }
 
     @Builder
-    public WordResponseDto(String vocabulary, String mean, WordLevel level, LocalDateTime lastUpdateDatetime, String lastUpdateUserNickName) {
+    public WordResponseDto(String vocabulary, String mean, WordLevelType level, LocalDateTime lastUpdateDatetime, String lastUpdateUserNickName) {
         this.vocabulary = vocabulary;
         this.mean = mean;
         this.level = level;

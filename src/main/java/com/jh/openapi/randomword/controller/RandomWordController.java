@@ -1,16 +1,16 @@
 package com.jh.openapi.randomword.controller;
 
+import com.jh.openapi.randomword.domain.request.englishWord.WordRegisterRequestDto;
 import com.jh.openapi.randomword.domain.response.WordResponseDto;
 import com.jh.openapi.randomword.domain.type.LanguageType;
+import com.jh.openapi.randomword.domain.type.WordLevelType;
 import com.jh.openapi.randomword.service.RandomWordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static com.jh.openapi.randomword.domain.type.LanguageType.findByName;
+import javax.validation.Valid;
+
 
 @RequiredArgsConstructor
 @RequestMapping("/api/open-api")
@@ -20,8 +20,28 @@ public class RandomWordController {
 
     @GetMapping("/random/word/{language}")
     public ResponseEntity<WordResponseDto> getRandomWord(@PathVariable String language) {
-        LanguageType languageType = findByName(language);
+        LanguageType languageType = LanguageType.findByName(language);
 
         return ResponseEntity.ok(randomWordService.getRandomWord(languageType));
+    }
+
+    @GetMapping("/random/word/{language}/{level}")
+    public ResponseEntity<WordResponseDto> getRandomWordByLevel(@PathVariable String language,
+                                                                @PathVariable String level) {
+        LanguageType languageType = LanguageType.findByName(language);
+        WordLevelType wordLevelType = WordLevelType.findByName(level);
+
+        return ResponseEntity.ok(randomWordService.getRandomWordByLevel(languageType, wordLevelType));
+    }
+
+    @PostMapping("/word/{language}")
+    public ResponseEntity<Void> registerRandomWord(@PathVariable String language,
+                                                   @RequestBody @Valid WordRegisterRequestDto requestDto) {
+
+        LanguageType languageType = LanguageType.findByName(language);
+
+        randomWordService.registerRandomWord(languageType, requestDto);
+
+        return ResponseEntity.ok().build();
     }
 }
