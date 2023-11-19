@@ -2,16 +2,20 @@ version: '3.8'
 
 services:
   mysql:
-    container_name: mysql_local
-    image: mysql:8.0.30
-    volumes:
-      - ./db/conf.d:/etc/mysql/conf.d
-      - ./db/initdb.d:/docker-entrypoint-initdb.d
-    ports:
-      - "3361:3306"
+    container_name: openapi-database
+    build:
+      dockerfile: Dockerfile
+      context: ./db
+    image: fkaa/openapi-database
     environment:
       - MYSQL_DATABASE=openapi_db
       - MYSQL_USER=openapi_jh
       - MYSQL_PASSWORD=openapi_jh_3323
       - MYSQL_ROOT_PASSWORD=openapi_jh_3323
       - TZ=Asia/Seoul
+      - LC_ALL=C.UTF-8
+    volumes:
+      - ./db/config:/etc/mysql/conf.d
+      - ./db/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3361:3306"

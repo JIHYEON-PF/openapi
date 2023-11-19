@@ -1,6 +1,7 @@
 package com.jh.openapi.randomword.domain.entity.metadata;
 
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -20,24 +21,24 @@ public class MetaDataEntity {
     @CreatedDate
     protected LocalDateTime regDatetime;
 
-    @Column(name = "reg_user_idx", nullable = false, updatable = false)
+    @Column(name = "reg_user_nickname", nullable = false, updatable = false)
     @CreatedBy
-    protected Long regUserIdx;
+    protected String regUserNickname;
 
     @Column(name = "mod_datetime")
     @LastModifiedDate
     protected LocalDateTime modDatetime;
 
-    @Column(name = "mod_user_idx")
+    @Column(name = "mod_user_nickname")
     @LastModifiedBy
-    protected Long modUserIdx;
+    protected String modUserNickname;
 
-    public Long getLastUpdateUserIdx() {
-        if (this.modUserIdx != null && this.modUserIdx > 0L) {
-            return this.modUserIdx;
+    public String getLastUpdateUserNickname() {
+        if (StringUtils.isNotBlank(this.modUserNickname)) {
+            return this.modUserNickname;
         }
 
-        return this.regUserIdx;
+        return this.regUserNickname;
     }
 
     public LocalDateTime getLastUpdateDatetime() {
