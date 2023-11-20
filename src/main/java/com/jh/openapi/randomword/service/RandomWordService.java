@@ -11,6 +11,7 @@ import com.jh.openapi.randomword.repository.WordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,10 @@ public class RandomWordService {
 
     public WordResponseDto getRandomWord(LanguageType languageType) {
         long wordCount = wordRepository.count();
+
+        if (wordCount == 0) {
+            return WordResponseDto.emptyWord();
+        }
 
         EnglishWord randomWord = getEnglishWord(wordCount);
 
@@ -44,6 +49,10 @@ public class RandomWordService {
 
     public WordResponseDto getRandomWordByLevel(LanguageType language, WordLevelType level) {
         List<EnglishWord> englishWordWithLevel = wordRepository.findEnglishWordByLevel(level);
+
+        if (CollectionUtils.isEmpty(englishWordWithLevel)) {
+            return WordResponseDto.emptyWord();
+        }
 
         int randomIndex = new Random().nextInt(0, englishWordWithLevel.size());
 
