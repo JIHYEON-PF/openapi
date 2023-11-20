@@ -45,7 +45,7 @@ public class RandomWordService {
     public WordResponseDto getRandomWordByLevel(LanguageType language, WordLevelType level) {
         List<EnglishWord> englishWordWithLevel = wordRepository.findEnglishWordByLevel(level);
 
-        int randomIndex = new Random().nextInt(0, englishWordWithLevel.size() - 1);
+        int randomIndex = new Random().nextInt(0, englishWordWithLevel.size());
 
         return WordResponseDto.fromEntity(englishWordWithLevel.get(randomIndex));
     }
