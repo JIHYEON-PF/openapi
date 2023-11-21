@@ -40,7 +40,22 @@ public class EnglishWord extends MetaDataEntity {
         this.modDatetime = modDatetime;
     }
 
-    public void updateMeaning(String meaning) {
-        this.meaning = meaning;
+    public void update(String updateMeaning, WordLevelType updateLevel, String modUserNickname) {
+        updateMeaning(updateMeaning);
+        updateLevel(updateLevel);
+        updateMetadata(modUserNickname);
+    }
+
+    public void updateMeaning(String updateMeaning) {
+        this.meaning = updateMeaning;
+    }
+
+    public void updateLevel(WordLevelType updateLevel) {
+        this.level = updateLevel;
+    }
+
+    private void updateMetadata(String modUserNickname) {
+        this.modUserNickname = modUserNickname;
+        this.modDatetime = LocalDateTime.now();
     }
 }
