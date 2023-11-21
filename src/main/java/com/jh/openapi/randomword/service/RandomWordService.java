@@ -2,11 +2,13 @@ package com.jh.openapi.randomword.service;
 
 import com.jh.openapi.randomword.domain.entity.EnglishWord;
 import com.jh.openapi.randomword.domain.request.englishWord.WordRegisterRequestDto;
+import com.jh.openapi.randomword.domain.request.englishWord.WordUpdateRequestDto;
 import com.jh.openapi.randomword.domain.response.WordResponseDto;
 import com.jh.openapi.randomword.domain.type.LanguageType;
 import com.jh.openapi.randomword.domain.type.WordLevelType;
 import com.jh.openapi.randomword.error.exception.BusinessException;
 import com.jh.openapi.randomword.error.type.BadRequestType;
+import com.jh.openapi.randomword.error.type.NotFoundType;
 import com.jh.openapi.randomword.repository.WordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -60,7 +62,7 @@ public class RandomWordService {
     }
 
     @Transactional
-    public void registerRandomWord(LanguageType language, WordRegisterRequestDto requestDto) {
+    public void registerWord(LanguageType language, WordRegisterRequestDto requestDto) {
         switch (language) {
             case ENG -> insertEnglishWord(requestDto);
             default -> throw new BusinessException(BadRequestType.INVALID_LANGUAGE_TYPE);
@@ -75,5 +77,13 @@ public class RandomWordService {
         }
 
         wordRepository.save(englishWord);
+    }
+
+    @Transactional
+    public void updateWord(String vocabulary, WordUpdateRequestDto requestDto) {
+        EnglishWord targetWord = wordRepository.findEnglishWordByVocabulary(vocabulary)
+                .orElseThrow(() -> new BusinessException(NotFoundType.CANNOT_FOUND_WORD));
+
+        targetWord.update(requestDto.getMeaning(), requestDto.getLevel(), requestDto.getUpdateNickname());
     }
 }

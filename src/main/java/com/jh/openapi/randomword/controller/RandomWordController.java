@@ -1,6 +1,7 @@
 package com.jh.openapi.randomword.controller;
 
 import com.jh.openapi.randomword.domain.request.englishWord.WordRegisterRequestDto;
+import com.jh.openapi.randomword.domain.request.englishWord.WordUpdateRequestDto;
 import com.jh.openapi.randomword.domain.response.WordResponseDto;
 import com.jh.openapi.randomword.domain.type.LanguageType;
 import com.jh.openapi.randomword.domain.type.WordLevelType;
@@ -35,12 +36,24 @@ public class RandomWordController {
     }
 
     @PostMapping("/word/{language}")
-    public ResponseEntity<Void> registerRandomWord(@PathVariable String language,
-                                                   @RequestBody @Valid WordRegisterRequestDto requestDto) {
+    public ResponseEntity<Void> registerWord(@PathVariable String language,
+                                             @RequestBody @Valid WordRegisterRequestDto requestDto) {
 
         LanguageType languageType = LanguageType.findByName(language);
 
-        randomWordService.registerRandomWord(languageType, requestDto);
+        randomWordService.registerWord(languageType, requestDto);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/word/{language}/{vocabulary}")
+    public ResponseEntity<Void> updateWord(@PathVariable String language,
+                                           @PathVariable String vocabulary,
+                                           @RequestBody @Valid WordUpdateRequestDto requestDto) {
+
+        LanguageType languageType = LanguageType.findByName(language);
+
+        randomWordService.updateWord(vocabulary, requestDto);
 
         return ResponseEntity.ok().build();
     }

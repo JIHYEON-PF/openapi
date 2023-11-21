@@ -20,16 +20,3 @@ logging:
     rollingpolicy:
       max-history: 3
       max-file-size: 100MB
-
-naver:
-  open-api:
-    client:
-      id:
-        key: X-Naver-Client-Id
-        value: GjRXRWmJva6Aiy69soqw
-      pw:
-        key: X-Naver-Client-Secret
-        value: B7rBBcamM2
-    dictionary:
-      path: https://openapi.naver.com/v1/search/encyc.json
-      method: GET
