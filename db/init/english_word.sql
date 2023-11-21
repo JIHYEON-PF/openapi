@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS `english_word`;
 create table `english_word`
 (
     `idx`               int auto_increment                                   comment '식별번호',
-    `vocabulary`        varchar(100)                                         not null comment '단어',
+    `vocabulary`        varchar(100) UNIQUE                                  not null comment '단어',
     `meaning`           varchar(100)                                         not null comment '뜻',
     `level`             enum ('ELEMENT', 'MIDDLE', 'HIGH') default 'ELEMENT' not null comment '난이도',
     `reg_datetime`      datetime                                             null comment '등록일',
