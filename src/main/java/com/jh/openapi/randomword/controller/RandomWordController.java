@@ -2,7 +2,7 @@ package com.jh.openapi.randomword.controller;
 
 import com.jh.openapi.randomword.domain.request.englishWord.WordRegisterRequestDto;
 import com.jh.openapi.randomword.domain.request.englishWord.WordUpdateRequestDto;
-import com.jh.openapi.randomword.domain.response.WordResponseDto;
+import com.jh.openapi.randomword.domain.response.WordResponsesDto;
 import com.jh.openapi.randomword.domain.type.LanguageType;
 import com.jh.openapi.randomword.domain.type.WordLevelType;
 import com.jh.openapi.randomword.service.RandomWordService;
@@ -20,19 +20,21 @@ public class RandomWordController {
     private final RandomWordService randomWordService;
 
     @GetMapping("/random/word/{language}")
-    public ResponseEntity<WordResponseDto> getRandomWord(@PathVariable String language) {
+    public ResponseEntity<WordResponsesDto> getRandomWord(@PathVariable String language,
+                                                          @RequestParam(defaultValue = "1") Long count) {
         LanguageType languageType = LanguageType.findByName(language);
 
-        return ResponseEntity.ok(randomWordService.getRandomWord(languageType));
+        return ResponseEntity.ok(randomWordService.getRandomWord(languageType, count));
     }
 
     @GetMapping("/random/word/{language}/{level}")
-    public ResponseEntity<WordResponseDto> getRandomWordByLevel(@PathVariable String language,
-                                                                @PathVariable String level) {
+    public ResponseEntity<WordResponsesDto> getRandomWordByLevel(@PathVariable String language,
+                                                                      @PathVariable String level,
+                                                                      @RequestParam(defaultValue = "1") Long count) {
         LanguageType languageType = LanguageType.findByName(language);
         WordLevelType wordLevelType = WordLevelType.findByName(level);
 
-        return ResponseEntity.ok(randomWordService.getRandomWordByLevel(languageType, wordLevelType));
+        return ResponseEntity.ok(randomWordService.getRandomWordByLevel(languageType, wordLevelType, count));
     }
 
     @PostMapping("/word/{language}")
