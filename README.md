@@ -7,50 +7,18 @@
 ### 생성된 API
 | **Title** | **Path** | **Method** |
 | :--- | :--- | :---:|
-| 영어단어 랜덤 조회 | `/api/open-api/random/word/eng` | GET |
-| 영어단어 난이도별 랜덤 조회 | `/api/open-api/random/word/eng/:level` | GET |
+| 영어단어 난이도별 랜덤 조회 | `/api/open-api/random/word/eng` | GET |
 | 영어단어 등록 | `/api/open-api/word/eng` | POST |
 | 영어단어 수정 | `/api/open-api/word/eng/:vocabulary` | PATCH |
 
 ### API Description
-- 영어단어 랜덤 조회
-  - DB에 등록되어 있는 단어 중 랜덤한 요청 개수만큼 단어 조회하여 반환
-  - `curl -v http://openapi.webservicetoday.com/api/open-api/random/word/eng?count=`
+- 영어단어 난이도별 랜덤 조회
+  - DB에 등록되어 있는 단어 중 PathVariable에 입력한 난이도에 따라 단어 조회
+  - `curl -v http://openapi.webservicetoday.com/api/open-api/random/word/eng?level=count=`
   - RequestParam
     | **field name** | **type** | **nullable** | **description** |
     | :--- | :--- | :---: | :--- |
-    | count | int | O | 조회 단어 개수<br>- Default Value: 1<br>- 등록 단어보다 많이 요청할 경우 등록단어 전체 조회 |
-  - Response Json Example
-    ```json
-    {
-        "words": [
-            {
-                "vocabulary": "heavy",
-                "mean": "무거운",
-                "level": "ELEMENT",
-                "lastUpdateDatetime": "2023.11.20 00:25",
-                "lastUpdateUserNickName": "관리자"
-            },
-            {
-                "vocabulary": "than",
-                "mean": "~보다는",
-                "level": "ELEMENT",
-                "lastUpdateDatetime": "2023.11.20 00:25",
-                "lastUpdateUserNickName": "관리자"
-            }
-        ]
-    }
-    ```
-- 영어단어 난이도별 랜덤 조회
-  - DB에 등록되어 있는 단어 중 PathVariable에 입력한 난이도에 따라 단어 조회
-  - `curl -v http://openapi.webservicetoday.com/api/open-api/random/word/eng/:level?count=`
-  - PathVariable(string enum)
-    - element -> 초등
-    - middle -> 중등
-    - high -> 고등
-    - RequestParam
-    | **field name** | **type** | **nullable** | **description** |
-    | :--- | :--- | :---: | :--- |
+    | level | string num | O | 조회 단어 레벨<br>- all: 전체 레벨 조회(Default Value)<br>- element: 초등<br>- middle: 중등<br>- high: 고등 |
     | count | int | O | 조회 단어 개수<br>- Default Value: 1<br>- 등록 단어보다 많이 요청할 경우 등록단어 전체 조회 |
   - Response Json Example
     ```json
@@ -93,5 +61,5 @@
     | :--- | :--- | :---: | :--- |
     | meaning | string | X | 영어 단어 뜻 |
     | level | string enum | X | 영어 단어 난이도<br>- element: 초등<br>- middle: 중등<br>- high: 고등 |
-    | updateNickname | string | X | 등록자 닉네임 |
+    | updateNickname | string | X | 수정자 닉네임 |
     
