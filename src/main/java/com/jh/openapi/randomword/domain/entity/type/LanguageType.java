@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum LanguageType {
-    KOR,
-    ENG,
+    KOR("한글"),
+    ENG("영어"),
     ;
+
+    private final String description;
 }
