@@ -1,12 +1,13 @@
 package com.jh.openapi.randomword.service;
 
-import com.jh.openapi.randomword.domain.entity.EnglishWord;
-import com.jh.openapi.randomword.domain.request.englishWord.WordRegisterRequestDto;
-import com.jh.openapi.randomword.domain.request.englishWord.WordUpdateRequestDto;
-import com.jh.openapi.randomword.domain.response.WordResponseDto;
-import com.jh.openapi.randomword.domain.response.WordResponsesDto;
-import com.jh.openapi.randomword.domain.type.LanguageType;
-import com.jh.openapi.randomword.domain.type.WordLevelType;
+import com.jh.openapi.randomword.domain.entity.englishWord.EnglishWord;
+import com.jh.openapi.randomword.domain.view.request.englishWord.WordRegisterRequestDto;
+import com.jh.openapi.randomword.domain.view.request.englishWord.WordSearchRequestDto;
+import com.jh.openapi.randomword.domain.view.request.englishWord.WordUpdateRequestDto;
+import com.jh.openapi.randomword.domain.view.response.englishWord.WordResponseDto;
+import com.jh.openapi.randomword.domain.view.response.englishWord.WordResponsesDto;
+import com.jh.openapi.randomword.domain.entity.type.LanguageType;
+import com.jh.openapi.randomword.domain.entity.type.WordLevelType;
 import com.jh.openapi.randomword.error.exception.BusinessException;
 import com.jh.openapi.randomword.error.type.BadRequestType;
 import com.jh.openapi.randomword.error.type.NotFoundType;
@@ -19,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -34,8 +36,11 @@ public class RandomWordService {
         return createWordResponsesDtoFromEntityList(words);
     }
 
-    public WordResponsesDto getRandomWordByLevel(LanguageType language, WordLevelType level, Long count) {
-        List<EnglishWord> words = wordRepository.findAllOrderByRandomLimitBy(CollectionConvertUtils.convertEnumerateToNameSet(EnumSet.of(level)), count);
+    public WordResponsesDto getRandomWordByLevel(LanguageType language, WordSearchRequestDto requestDto) {
+        Set<String> levelNameSet = CollectionConvertUtils.convertEnumerateToNameSet(requestDto.convertRequestEnumToEntityEnumSet());
+        Long count = requestDto.getCount();
+
+        List<EnglishWord> words = wordRepository.findAllOrderByRandomLimitBy(levelNameSet, count);
 
         return createWordResponsesDtoFromEntityList(words);
     }
@@ -71,6 +76,6 @@ public class RandomWordService {
         EnglishWord targetWord = wordRepository.findEnglishWordByVocabulary(vocabulary)
                 .orElseThrow(() -> new BusinessException(NotFoundType.CANNOT_FOUND_WORD));
 
-        targetWord.update(requestDto.getMeaning(), requestDto.getLevel(), requestDto.getUpdateNickname());
+        targetWord.update(requestDto.getMeaning(), requestDto.getLevel().convertToEntityType(), requestDto.getUpdateNickname());
     }
 }

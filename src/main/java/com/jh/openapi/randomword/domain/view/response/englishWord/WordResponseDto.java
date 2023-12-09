@@ -1,9 +1,9 @@
-package com.jh.openapi.randomword.domain.response;
+package com.jh.openapi.randomword.domain.view.response.englishWord;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.jh.openapi.randomword.domain.entity.EnglishWord;
-import com.jh.openapi.randomword.domain.type.WordLevelType;
+import com.jh.openapi.randomword.domain.entity.englishWord.EnglishWord;
+import com.jh.openapi.randomword.domain.entity.type.WordLevelType;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;

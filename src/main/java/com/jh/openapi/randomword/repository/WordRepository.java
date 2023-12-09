@@ -1,6 +1,6 @@
 package com.jh.openapi.randomword.repository;
 
-import com.jh.openapi.randomword.domain.entity.EnglishWord;
+import com.jh.openapi.randomword.domain.entity.englishWord.EnglishWord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
