@@ -2,6 +2,7 @@ package com.jh.openapi.randomword.validation.validator;
 
 import com.jh.openapi.randomword.domain.entity.type.LanguageType;
 import com.jh.openapi.randomword.validation.annotation.Language;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;
@@ -29,6 +30,14 @@ public class LanguageValidator implements ConstraintValidator<Language, String> 
             case KOR -> KOR_PATTERN;
         };
 
-        return pattern.matcher(value).matches();
+        boolean matches = pattern.matcher(value).matches();
+
+        if (BooleanUtils.isFalse(matches)) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate(languageType.getDescription() + "로 입력 되어야 합니다.")
+                    .addConstraintViolation();
+        }
+
+        return matches;
     }
 }
