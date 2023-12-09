@@ -1,7 +1,7 @@
-package com.jh.openapi.randomword.domain.entity;
+package com.jh.openapi.randomword.domain.entity.englishWord;
 
 import com.jh.openapi.randomword.domain.entity.metadata.MetaDataEntity;
-import com.jh.openapi.randomword.domain.type.WordLevelType;
+import com.jh.openapi.randomword.domain.entity.type.WordLevelType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

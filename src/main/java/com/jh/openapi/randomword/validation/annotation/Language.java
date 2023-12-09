@@ -1,6 +1,6 @@
 package com.jh.openapi.randomword.validation.annotation;
 
-import com.jh.openapi.randomword.domain.type.LanguageType;
+import com.jh.openapi.randomword.domain.entity.type.LanguageType;
 import com.jh.openapi.randomword.validation.validator.LanguageValidator;
 
 import javax.validation.Constraint;

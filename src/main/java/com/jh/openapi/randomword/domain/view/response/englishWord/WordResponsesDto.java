@@ -1,4 +1,4 @@
-package com.jh.openapi.randomword.domain.response;
+package com.jh.openapi.randomword.domain.view.response.englishWord;
 
 import lombok.Getter;
 import org.apache.commons.lang3.BooleanUtils;
