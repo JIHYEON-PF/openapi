@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class LanguageValidator implements ConstraintValidator<Language, String> {
     private static final Pattern ENG_PATTERN = Pattern.compile("^[a-zA-Z]+$");
-    private static final Pattern KOR_PATTERN = Pattern.compile("^[가-힇,\\s]+$");
+    private static final Pattern KOR_PATTERN = Pattern.compile("^[가-힣,\\s]+$");
     private LanguageType languageType;
 
     @Override
